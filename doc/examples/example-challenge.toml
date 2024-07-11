@@ -1,0 +1,106 @@
+# This is an example challenge description in TOML. JSON and YAML are
+# also accepted. This example file is dedicated to the public domain
+# under the terms of CC0.
+
+# `name` is the name of the challenge. Optional.
+name = "July Summer Challenge"
+# `end` is the end date of the challenge.
+end = 2024-08-01T05:00:00Z
+# `win_condition` describes the win conditions of the challenge, in
+# order of preference. Available win conditions are:
+#
+#   - score: The score of the play, using Lazer standardized scoring.
+#   - scorev1: The score of the play, as shown in the results screen
+#     for stable scores and using Lazer classic scoring for Lazer
+#     scores.
+#   - accuracy: The accuracy of the play as shown by Lazer.
+#   - pp: The pp of the play. If the map used in a round is ranked,
+#     the pp would be fetched online. If unranked, this win condition
+#     is ignored for the round.
+#   - time: The time a score is submitted. The earliest plays win.
+win_condition = ["accuracy", "scorev1"]
+
+
+# `brackets` is a list of brackets. Each bracket has a list of rounds
+# to play, and may also feature rank limits for participants.
+[[brackets]]
+# `max_rank` is the maximum rank allowed to enter this bracket. Defaults
+# to the top player, or 1.
+max_rank = 700000
+# `min_rank` is the minimum rank required to participate in this
+# bracket. If not set, everyone below the max rank can enter.
+min_rank = 900000
+
+# Each bracket may feature a number of rounds.
+[[brackets.rounds]]
+# `id` denotes the online ID of the beatmap difficulty to play, as
+# specified after <https://osu.ppy.sh/rounds/>. The same beatmap
+# can be used multiple times.
+id = 675967
+# `start` denotes the start time of the round.
+start = 2024-07-01T05:00:00Z
+# `end` denotes the deadline for the round.
+end = 2024-07-03T05:00:00Z
+
+[[brackets.rounds]]
+id = 254003
+start = 2024-07-03T05:00:00Z
+end = 2024-07-05T05:00:00Z
+
+[[brackets.rounds]]
+id = 4618385
+start = 2024-07-05T05:00:00Z
+end = 2024-07-07T05:00:00Z
+
+[[brackets.rounds]]
+id = 2567763
+start = 2024-07-07T05:00:00Z
+end = 2024-07-09T05:00:00Z
+
+[[brackets.rounds]]
+id = 951148
+start = 2024-07-09T05:00:00Z
+end = 2024-07-11T05:00:00Z
+
+[[brackets.rounds]]
+id = 136727
+start = 2024-07-11T05:00:00Z
+end = 2024-07-13T05:00:00Z
+
+[[brackets.rounds]]
+id = 67525
+start = 2024-07-13T05:00:00Z
+end = 2024-07-15T05:00:00Z
+
+[[brackets.rounds]]
+id = 2084467
+start = 2024-07-15T05:00:00Z
+end = 2024-07-17T05:00:00Z
+
+[[brackets.rounds]]
+id = 1527465
+start = 2024-07-17T05:00:00Z
+end = 2024-07-19T05:00:00Z
+
+[[brackets.rounds]]
+id = 254662
+start = 2024-07-19T05:00:00Z
+end = 2024-07-21T05:00:00Z
+
+[[brackets.rounds]]
+# Free periods are specified by setting `free` to true. In a free period,
+# scores for all previous maps can be updated.
+free = true
+start = 2024-07-21T05:00:00Z
+end = 2024-08-01T05:00:00Z
+
+
+# A challenge may feature a number of checkpoints at which a set
+# number of beatmaps must be played.
+[[checkpoints]]
+time = 2024-07-11T05:00:00Z
+beatmaps = 3
+
+[[checkpoints]]
+time = 2024-07-21T05:00:00Z
+beatmaps = 7

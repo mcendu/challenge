@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcendu.github.io/challenge/schemas/challenge.json",
+  "$defs": {
+    "beatmap": {
+      "description": "A beatmap in a playlist",
+      "type": "object",
+      "properties": {
+        "start": {
+          "description": "Start time of the beatmap",
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "description": "End time of the beatmap",
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "description": "Online ID of the beatmap",
+          "type": "integer"
+        },
+        "free": {
+          "description": "Shorthand for when scores for all beatmaps in the pool can be submitted",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": ["start", "end"],
+      "examples": [
+        {
+          "start": "2024-07-01T12:00:00Z",
+          "end": "2024-07-03T12:00:00Z",
+          "id": 75
+        },
+        {
+          "start": "2024-07-21T12:00:00Z",
+          "end": "2024-07-31T12:00:00Z",
+          "free": true
+        }
+      ]
+    }
+  },
+  "title": "Challenge",
+  "description": "Play challenge for osu!",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Name of the playlist",
+      "type": "string"
+    },
+    "end": {
+      "description": "End time of the playlist",
+      "type": "string",
+      "format": "date-time"
+    },
+    "win_condition": {
+      "description": "Round win conditions in order of preference",
+      "type": "array",
+      "items": {
+        "enum": ["score", "scorev1", "accuracy", "pp", "date"]
+      },
+      "default": ["score"]
+    },
+    "brackets": {
+      "description": "Per-rank mappools",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "max_rank": {
+            "description": "The maximum rank for the bracket, inclusive",
+            "type": "integer",
+            "default": 1,
+            "minimum": 1
+          },
+          "min_rank": {
+            "description": "The minimum rank for the bracket, exclusive",
+            "type": "integer"
+          },
+          "rounds": {
+            "description": "List of rounds for the bracket",
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/beatmap"
+            }
+          }
+        },
+        "examples": [
+          {
+            "max_rank": 10000,
+            "min_rank": 50000,
+            "beatmaps": [
+              {
+                "start": "2024-07-01T12:00:00Z",
+                "end": "2024-07-03T12:00:00Z",
+                "id": 75
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "checkpoints": {
+      "description": "Checkpoints for submission of plays",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "description": "Time of the checkpoint",
+            "type": "string",
+            "format": "date-time"
+          },
+          "beatmaps": {
+            "description": "Number of beatmaps played required",
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "examples": [
+          {
+            "time": "2024-07-11T05:00:00Z",
+            "beatmaps": 3
+          }
+        ]
+      }
+    }
+  },
+  "required": ["brackets", "end"]
+}
